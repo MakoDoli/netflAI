@@ -1,11 +1,7 @@
-import "./App.css";
+import Body from "./components/Body";
 
 function App() {
-  return (
-    <div className="flex w-full h-screen items-center justify-center">
-      Hello
-    </div>
-  );
+  return <Body />;
 }
 
 export default App;
