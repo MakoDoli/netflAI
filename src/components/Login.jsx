@@ -5,6 +5,8 @@ import { checkValidData } from "../utils/validate";
 
 export default function Login() {
   const [isSigninForm, setIsSigninForm] = useState(true);
+  const [errorMessage, setErrorMessage] = useState("");
+
   const toggleSign = () => {
     setIsSigninForm(!isSigninForm);
   };
@@ -14,8 +16,12 @@ export default function Login() {
 
   const handleButtonClick = (e) => {
     e.preventDefault();
-    console.log(email.current.value, password.current.value);
-    //checkValidData();
+
+    const message = checkValidData(email.current.value, password.current.value);
+
+    if (message === true)
+      console.log(email.current.value, password.current.value);
+    setErrorMessage(message);
   };
   return (
     <div>
@@ -51,6 +57,7 @@ export default function Login() {
             placeholder="Password"
             className="p-3 bg-transparent border border-gray-500 rounded-md w-full"
           />
+          <p className="text-red-600">{errorMessage}</p>
           <button
             className="p-4  bg-red rounded-md bg-red-600 w-full"
             onClick={handleButtonClick}
