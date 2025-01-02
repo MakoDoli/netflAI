@@ -6,16 +6,23 @@ import { createBrowserRouter } from "react-router-dom";
 import { RouterProvider } from "react-router-dom";
 
 export default function Body() {
-  const appRouter = createBrowserRouter([
+  const appRouter = createBrowserRouter(
+    [
+      {
+        path: "/",
+        element: <Login />,
+      },
+      {
+        path: "/browse",
+        element: <Browse />,
+      },
+    ],
     {
-      path: "/",
-      element: <Login />,
-    },
-    {
-      path: "/browse",
-      element: <Browse />,
-    },
-  ]);
+      future: {
+        v7_relativeSplatPath: true,
+      },
+    }
+  );
   return (
     <div>
       <RouterProvider router={appRouter} />
