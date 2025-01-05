@@ -1,14 +1,17 @@
 import React, { useRef, useState } from "react";
 import Header from "./Header";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { checkValidData } from "../utils/validate";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  updateProfile,
 } from "firebase/auth";
 import { auth } from "../utils/firebase";
 
 export default function Login() {
+  const navigate = useNavigate();
+
   const [isSigninForm, setIsSigninForm] = useState(true);
   const [errorMessage, setErrorMessage] = useState("");
 
@@ -16,6 +19,7 @@ export default function Login() {
     setIsSigninForm(!isSigninForm);
   };
 
+  const name = useRef(null);
   const email = useRef(null);
   const password = useRef(null);
 
@@ -36,6 +40,19 @@ export default function Login() {
         .then((userCredential) => {
           // Signed up
           const user = userCredential.user;
+          updateProfile(user, {
+            displayName: name.current.value,
+            // photoURL: "https://example.com/jane-q-user/profile.jpg",
+          })
+            .then(() => {
+              // Profile updated!
+              // ...
+            })
+            .catch((error) => {
+              // An error occurred
+              // ...
+            });
+          navigate("/browse");
           console.log(user);
         })
         .catch((error) => {
@@ -54,6 +71,7 @@ export default function Login() {
         .then((userCredential) => {
           // Signed in
           const user = userCredential.user;
+          navigate("/browse");
           console.log(user);
         })
         .catch((error) => {
@@ -72,7 +90,7 @@ export default function Login() {
         <img
           src="https://assets.nflxext.com/ffe/siteui/vlv3/4690cab8-243a-4552-baef-1fb415632f74/web/GE-en-20241118-TRIFECTA-perspective_bc767956-f12f-486f-8f83-f5b493d961cc_medium.jpg"
           alt="bg"
-          objectFit="cover"
+          //className=" object-center"
         />
       </div>
       <div className="absolute w-full h-screen top-0 flex justify-center items-center">
@@ -82,6 +100,7 @@ export default function Login() {
           </h1>
           {!isSigninForm ? (
             <input
+              ref={name}
               className="p-3 bg-transparent border border-gray-500 rounded-md w-full"
               type="text"
               placeholder="Name"
