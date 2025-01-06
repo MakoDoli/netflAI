@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 import Header from "./Header";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { checkValidData } from "../utils/validate";
 import {
   createUserWithEmailAndPassword,
@@ -10,8 +10,6 @@ import {
 import { auth } from "../utils/firebase";
 
 export default function Login() {
-  const navigate = useNavigate();
-
   const [isSigninForm, setIsSigninForm] = useState(true);
   const [errorMessage, setErrorMessage] = useState("");
 
@@ -50,10 +48,10 @@ export default function Login() {
             })
             .catch((error) => {
               // An error occurred
-              // ...
+              console.warn(error.message);
             });
-          navigate("/browse");
-          console.log(user);
+          // navigate("/browse");
+          // console.log(user);
         })
         .catch((error) => {
           const errorCode = error.code;
@@ -70,9 +68,9 @@ export default function Login() {
       )
         .then((userCredential) => {
           // Signed in
-          const user = userCredential.user;
-          navigate("/browse");
-          console.log(user);
+          //const user = userCredential.user;
+          // navigate("/browse");
+          //console.log(user);
         })
         .catch((error) => {
           const errorCode = error.code;
