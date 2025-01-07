@@ -8,6 +8,7 @@ import {
   updateProfile,
 } from "firebase/auth";
 import { auth } from "../utils/firebase";
+import { BG_IMAGE_URL } from "../utils/constants";
 
 export default function Login() {
   const [isSigninForm, setIsSigninForm] = useState(true);
@@ -86,7 +87,7 @@ export default function Login() {
       <Header />
       <div>
         <img
-          src="https://assets.nflxext.com/ffe/siteui/vlv3/4690cab8-243a-4552-baef-1fb415632f74/web/GE-en-20241118-TRIFECTA-perspective_bc767956-f12f-486f-8f83-f5b493d961cc_medium.jpg"
+          src={BG_IMAGE_URL}
           alt="bg"
           //className=" object-center"
         />

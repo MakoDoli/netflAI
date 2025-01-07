@@ -25,7 +25,7 @@ export default function Header() {
   };
 
   useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         //if user is signed in
         const { uid, email, displayName } = user;
@@ -37,6 +37,7 @@ export default function Header() {
         navigate("/");
       }
     });
+    return () => unsubscribe();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
